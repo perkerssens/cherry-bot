@@ -1,6 +1,8 @@
 import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.actions import DeclareLaunchArgument, ExecuteProcess
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
@@ -29,9 +31,9 @@ def generate_launch_description():
       default_value='false',
       description='Use simulation (Gazebo) clock if true'),
 
-    ExecuteProcess(
-      cmd=['gazebo', '--verbose', '--pause', '-s', 'libgazebo_ros_factory.so', world],
-      output='screen'),
+    #ExecuteProcess(
+    #  cmd=['gazebo', '--verbose', '--pause', '-s', 'libgazebo_ros_factory.so', world],
+    #  output='screen'),
 
     Node(
       package='robot_state_publisher',
@@ -44,11 +46,20 @@ def generate_launch_description():
    Node(
       package='joint_state_publisher_gui',
       executable='joint_state_publisher_gui',
-      name='joint_state_publisher',
+      name='joint_state_publisher_gui',
       output='screen',
       parameters=[{'use_sim_time': use_sim_time}]
       ),
 
+    IncludeLaunchDescription(
+      PythonLaunchDescriptionSource([os.path.join(
+      get_package_share_directory('gazebo_ros'), 'launch'), '/gazebo.launch.py'])),
+
+    Node(package='tf2_ros',
+      executable='static_transform_publisher',
+      name='static_transform_publisher',
+      output='log',
+      arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'base', 'link_0']),
     
     Node(
       package='gazebo_ros',

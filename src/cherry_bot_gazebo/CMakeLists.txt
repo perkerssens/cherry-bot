@@ -6,6 +6,8 @@ if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 14)
 endif()
 
+find_package(ament_cmake REQUIRED)
+
 find_package(gazebo REQUIRED)
 find_package(gazebo_ros REQUIRED)
 find_package(rclcpp REQUIRED)

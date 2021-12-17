@@ -1,10 +1,15 @@
 <?xml version="1.0"?>
 <robot name="cherry_bot">
-  <link name="base_link">
-  </link>
+  
+  <link name="base"/>
 
- <!-- Link 1-->
-  <link name="link_1">
+  <joint name="fixed" type="fixed">
+    <parent link="base"/>
+    <child link="link_0"/>
+  </joint>
+
+
+  <link name="link_0">
     <visual>
       <geometry>
         <cylinder length="0.6" radius="0.2"/>
@@ -23,7 +28,44 @@
     </inertial>
   </link>
 
-  <!-- Link 2-->
+  <joint name="joint1" type="revolute">
+    <axis xyz="1 0 0"/>
+    <limit effort="30.0" lower="-1.570" upper="1.570" velocity="0.5"/>
+    <parent link="link_0"/>
+    <child link="link_1"/>
+    <origin xyz="0 0 0.3"/>
+  </joint>
+
+
+  <link name="link_1">
+    <visual>
+      <geometry>
+        <cylinder length="0.6" radius="0.2"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.3"/>
+    </visual>
+
+    <collision>
+      <geometry>
+        <cylinder length="0.6" radius="0.2"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.3"/>
+    </collision>
+
+    <inertial>
+      <mass value="10"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <joint name="joint2" type="revolute">
+    <axis xyz="1 0 0"/>
+    <limit effort="30.0" lower="-1.570" upper="1.570" velocity="0.5"/>
+    <parent link="link_1"/>
+    <child link="link_2"/>
+    <origin xyz="0 0 0.6"/>
+  </joint>
+
   <link name="link_2">
     <visual>
       <geometry>
@@ -44,51 +86,5 @@
       <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
     </inertial>
   </link>
-
-
-  <!-- Link 3-->
-  <link name="link_3">
-    <visual>
-      <geometry>
-        <cylinder length="0.6" radius="0.2"/>
-      </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0.3"/>
-    </visual>
-
-    <collision>
-      <geometry>
-        <cylinder length="0.6" radius="0.2"/>
-      </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0.3"/>
-    </collision>
-
-    <inertial>
-      <mass value="10"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
-    </inertial>
-  </link>
-
-
-  <joint name="dummy_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="link_1"/>
-  </joint>
-
-  <joint name="J1" type="revolute">
-    <axis xyz="1 0 0"/>
-    <limit effort="1000.0" lower="-1.570" upper="1.570" velocity="0.5"/>
-    <parent link="link_1"/>
-    <child link="link_2"/>
-    <origin xyz="0 0 0.3"/>
-  </joint>
-
-  <joint name="J2" type="revolute">
-    <axis xyz="1 0 0"/>
-    <limit effort="1000.0" lower="-1.570" upper="1.570" velocity="0.5"/>
-    <parent link="link_2"/>
-    <child link="link_3"/>
-    <origin xyz="0 0 0.6"/>
-  </joint>
-
 
 </robot>
