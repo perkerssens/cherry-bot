@@ -11,6 +11,7 @@ find_package(ament_cmake REQUIRED)
 find_package(gazebo REQUIRED)
 find_package(gazebo_ros REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(robot_state_publisher REQUIRED)
 
 install(DIRECTORY
   launch worlds
