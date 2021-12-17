@@ -11,13 +11,8 @@ find_package(gazebo_ros REQUIRED)
 find_package(rclcpp REQUIRED)
 
 install(DIRECTORY
-  launch
+  launch worlds
   DESTINATION share/${PROJECT_NAME}
-)
-
-install(DIRECTORY
-  worlds
-  DESTINATION share/${PROJECT_NAME}/
 )
 
 ament_package()
