@@ -7,14 +7,20 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-
-    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
     urdf_file_name = 'model.urdf'
     world_file_name = 'test.world'
+    rviz_file_name = 'cherry_bot.rviz'
+
+    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
 
     urdf = os.path.join(
         get_package_share_directory('cherry_bot_description'), 'urdf',
         urdf_file_name)
+
+    rviz = os.path.join(
+        get_package_share_directory('cherry_bot_gazebo'), 'rviz',
+        rviz_file_name
+    )
 
     world = os.path.join(
         get_package_share_directory('cherry_bot_gazebo'), 'worlds',
@@ -45,12 +51,20 @@ def generate_launch_description():
             arguments=[urdf]),
 
         Node(
-          package='joint_state_publisher_gui',
-          executable='joint_state_publisher_gui',
-          name='joint_state_publisher_gui',
-          output='screen',
-          parameters=[{'use_sim_time': use_sim_time}]
-          ),
+            package='joint_state_publisher_gui',
+            executable='joint_state_publisher_gui',
+            name='joint_state_publisher_gui',
+            output='screen',
+            parameters=[{'use_sim_time': use_sim_time}]
+        ),
+
+        Node(
+            package='rviz2',
+            executable='rviz2',
+            name='rviz2',
+            output='screen',
+            arguments=['-d', rviz]
+        ),
 
         # IncludeLaunchDescription(
         #  PythonLaunchDescriptionSource([os.path.join(

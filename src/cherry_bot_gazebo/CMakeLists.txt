@@ -14,7 +14,7 @@ find_package(rclcpp REQUIRED)
 find_package(robot_state_publisher REQUIRED)
 
 install(DIRECTORY
-  launch worlds
+  launch worlds rviz
   DESTINATION share/${PROJECT_NAME}
 )
 
