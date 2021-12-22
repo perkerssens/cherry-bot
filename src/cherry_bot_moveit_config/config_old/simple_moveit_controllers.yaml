@@ -1,7 +1,7 @@
 controller_names:
-  - cherry_bot_controller
+  - cherry_bot_arm_controller
 
-cherry_bot_controller:
+cherry_bot_arm_controller:
   action_ns: follow_joint_trajectory
   type: FollowJointTrajectory
   default: true

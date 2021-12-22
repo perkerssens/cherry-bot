@@ -1,10 +1,8 @@
-controller_list:
-  - name: fake_cherry_bot_arm_controller
-    type: $(arg fake_execution_type)
-    joints:
-      - joint1
-initial:  # Define initial robot poses per group
-#  - group: cherry_bot_arm
-#    pose: home
+controller_names:
+  - fake_cherry_bot_arm_controller
 
-  []
+fake_cherry_bot_arm_controller:
+  joints:
+      - joint1
+
+initial:
